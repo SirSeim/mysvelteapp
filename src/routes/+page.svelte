@@ -1,5 +1,4 @@
-<script>
-	// @ts-check
+<script lang="ts">
 	import {
 		Navbar,
 		NavbarBrand,
@@ -18,8 +17,13 @@
 	} from '@sveltestrap/sveltestrap';
 
 	let isOpen = false;
-	let theme = 'auto';
-	function handleUpdate(event) {
+	enum themeState {
+		Auto = 'auto',
+		Dark = 'dark',
+		Light = 'light'
+	}
+	let theme = themeState.Auto;
+	function handleUpdate(event: any) {
 		isOpen = event.detail.isOpen;
 	}
 </script>
@@ -40,13 +44,18 @@
 			<Dropdown nav inNavbar>
 				<DropdownToggle nav caret>Theme</DropdownToggle>
 				<DropdownMenu end>
-					<DropdownItem active={theme === 'light'} on:click={() => (theme = 'light')}
-						><Icon name="sun-fill" /> light</DropdownItem
+					<DropdownItem
+						active={theme === themeState.Light}
+						on:click={() => (theme = themeState.Light)}><Icon name="sun-fill" /> light</DropdownItem
 					>
-					<DropdownItem active={theme === 'dark'} on:click={() => (theme = 'dark')}
+					<DropdownItem
+						active={theme === themeState.Dark}
+						on:click={() => (theme = themeState.Dark)}
 						><Icon name="moon-stars-fill" /> dark</DropdownItem
 					>
-					<DropdownItem active={theme === 'auto'} on:click={() => (theme = 'auto')}
+					<DropdownItem
+						active={theme === themeState.Auto}
+						on:click={() => (theme = themeState.Auto)}
 						><Icon name="circle-half" /> auto</DropdownItem
 					>
 				</DropdownMenu>
